@@ -90,7 +90,7 @@ public class UploadImage extends HttpServlet {
 				// 获取第一个问价，并且转成输入流
 				in = files.get(0).getInputStream();
 
-				String path = ((GenericServlet) request).getServletContext()
+				String path = request.getSession().getServletContext()
 						.getRealPath("/");
 				String uuid = UUID.randomUUID().toString();
 				path = path + "/photos";

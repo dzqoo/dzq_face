@@ -20,11 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<form action="" method="post"  enctype="multipart/form-data">
+  	<form action="uploadImage" method="post"  enctype="multipart/form-data">
   		<div class=uploadBox >
    			<h1>人脸识别</h1>
    			<p><input  type="file"  name="imgFile" /></p>
-   			<input  type="button"  value="上传" class="uploadBtn" />
+   			<input  type="submit"  value="上传" class="uploadBtn" />
    		</div>
    	</form>
   </body>

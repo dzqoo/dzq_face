@@ -87,13 +87,15 @@ public class UploadImage extends HttpServlet {
 				// 文件上传帮助类
 				ServletFileUpload sfu = new ServletFileUpload(fif);
 				List<FileItem> files = sfu.parseRequest(request);
-				// 获取第一个问价，并且转成输入流
+				// 获取第一个文件，并且转成输入流
 				in = files.get(0).getInputStream();
 
 				String path = request.getSession().getServletContext()
 						.getRealPath("/");
 				String uuid = UUID.randomUUID().toString();
 				path = path + "/photos";
+				
+				request.setAttribute("imagePath", "photos/"+uuid);
 				// 自动创建文件夹
 				File image = new File(path);
 				if (!image.exists()) {
@@ -121,6 +123,8 @@ public class UploadImage extends HttpServlet {
 				ots.close();
 			}
 		}
+		
+		request.getRequestDispatcher("showImage").forward(request, response);;
 	}
 
 	/**

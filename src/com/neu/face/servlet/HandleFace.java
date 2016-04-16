@@ -44,54 +44,62 @@ public class HandleFace extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		try{
-		String imagePath = request.getParameter("imagePath");
-		System.out.println(imagePath);
-		imagePath = request.getSession().getServletContext().getRealPath("/")+imagePath;
-		System.out.println(imagePath);
-		
-		HttpRequests hrs = new HttpRequests("8ee48b2f0466d2ec250cb85a9f6a865a","hQl18yxDS9y6axykz21qa-PIrTDAlN9U");
-		PostParameters pps = new PostParameters();
-		pps.setImg(new File(imagePath));
-		JSONObject json = hrs.detectionDetect(pps);
-		
-		JSONArray array = json.getJSONArray("face");
-		for(int i =0;i<array.length();i++){
-			JSONObject obj = array.getJSONObject(i);
-			JSONObject attrObj = obj.getJSONObject("attribute");
-			
-			StringBuffer result = new StringBuffer();
-			JSONObject age = attrObj.getJSONObject("age");
-			
-			int range = age.getInt("range");
-			int value = age.getInt("value");
-			//获取年龄
-			result.append("年龄：").append(value).append("岁（误差范围：");
-			result.append(range).append("岁）<br>");
-			//获取性别
-			String genderStr = attrObj.getJSONObject("gender").getString("value");
-			String confidence = attrObj.getJSONObject("gender").getString("confidence");
-			
-			result.append("性别：").append(genderStr).append("（正确率：");
-			result.append(confidence).append("%)<br>");
-			
-			//获取种族
-			String raceStr = attrObj.getJSONObject("race").getString("value");
-		    confidence = attrObj.getJSONObject("race").getString("confidence");
-		    
-		    result.append("种族：").append(raceStr).append("（正确率：");
-			result.append(confidence).append("%)<br>");
-			
-			//获取是不是在笑
-			String smiling = attrObj.getJSONObject("race").getString("smiling");
-			result.append("正在笑：").append(smiling).append("%");
-			
-			PrintWriter out = response.getWriter();
-			out.print(result.toString());
-			out.flush();
-			out.close();
-		}
-		}catch(Exception e){
+		response.setContentType("text/html;charset=utf-8");
+		try {
+			String imagePath = request.getParameter("imagePath");
+			imagePath = request.getSession().getServletContext()
+					.getRealPath("/")
+				+imagePath;
+
+			HttpRequests hrs = new HttpRequests(
+					"8ee48b2f0466d2ec250cb85a9f6a865a",
+					"hQl18yxDS9y6axykz21qa-PIrTDAlN9U");
+			PostParameters pps = new PostParameters();
+			pps.setImg(new File(imagePath));
+			JSONObject json = hrs.detectionDetect(pps);
+			JSONArray array = json.getJSONArray("face");
+			for (int i = 0; i < array.length(); i++) {
+				
+				JSONObject obj = array.getJSONObject(i);
+				JSONObject attrObj = obj.getJSONObject("attribute");
+
+				StringBuffer result = new StringBuffer();
+				JSONObject age = attrObj.getJSONObject("age");
+
+				int range = age.getInt("range");
+				int value = age.getInt("value");
+				// 获取年龄
+				result.append("年龄：").append(value).append("岁（误差范围：");
+				result.append(range).append("岁）<br>");
+				// 获取性别
+				String genderStr = attrObj.getJSONObject("gender").getString(
+						"value");
+				Double confidence = attrObj.getJSONObject("gender").getDouble(
+						"confidence");
+
+				result.append("性别：").append(genderStr).append("（正确率：");
+				result.append(confidence).append("%)<br>");
+
+				// 获取种族
+				String raceStr = attrObj.getJSONObject("race").getString(
+						"value");
+				confidence = attrObj.getJSONObject("race").getDouble(
+						"confidence");
+
+				result.append("种族：").append(raceStr).append("（正确率：");
+				result.append(confidence).append("%)<br>");
+
+				// 获取是不是在笑
+				Double smiling = attrObj.getJSONObject("smiling").getDouble(
+						"value");
+				result.append("正在笑：").append(smiling).append("%");
+
+				PrintWriter out = response.getWriter();
+				out.print(result.toString());
+				out.flush();
+				out.close();
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

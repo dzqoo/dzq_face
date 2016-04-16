@@ -31,9 +31,9 @@
 				"imagePath" : imgPath
 			},
 			success : function(data) {
-				alert(222);
 				var result = '<div class = "result">' + data + '</div>';
 				$("#contentBox").append(result);
+				$(".loading").removeClass().empty();
 			}
 		});
 	}
@@ -45,7 +45,7 @@
 		<div class="image_box">
 			<h1>人脸识别</h1>
 			<img id="imgHeader" width="400px" height="400px"
-				src=" ${requestScope.imagePath} " />
+				src="${requestScope.imagePath}" />
 			<div class="loading  animateLoading">正在识别。。。</div>
 		</div>
 		<div id="contentBox"></div>

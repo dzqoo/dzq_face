@@ -93,10 +93,9 @@ public class UploadImage extends HttpServlet {
 				String path = request.getSession().getServletContext()
 						.getRealPath("/");
 				String uuid = UUID.randomUUID().toString();
-				path = path + "/photos";
+				path = path + "photos";
 				
-				request.setAttribute("imagePath", "photos/"+uuid);
-				// 自动创建文件夹
+				request.setAttribute("imagePath", "photos\\"+uuid);
 				File image = new File(path);
 				if (!image.exists()) {
 					image.mkdirs();

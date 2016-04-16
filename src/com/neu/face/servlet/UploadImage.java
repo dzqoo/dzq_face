@@ -124,7 +124,7 @@ public class UploadImage extends HttpServlet {
 			}
 		}
 		
-		request.getRequestDispatcher("showImage").forward(request, response);;
+		request.getRequestDispatcher("showImage.jsp").forward(request, response);;
 	}
 
 	/**

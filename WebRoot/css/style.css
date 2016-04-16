@@ -94,8 +94,7 @@ img {border-style =none;
 	opacity: 0.3;
 }
 
-@
--webkit-keyframes face {
+@-webkit-keyframes face {
 	from { height:5px ;}
 	10%{
 	height:50px;}

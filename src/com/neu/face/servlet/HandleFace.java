@@ -46,12 +46,13 @@ public class HandleFace extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		try{
 		String imagePath = request.getParameter("imagePath");
+		System.out.println(imagePath);
 		imagePath = request.getSession().getServletContext().getRealPath("/")+imagePath;
+		System.out.println(imagePath);
 		
 		HttpRequests hrs = new HttpRequests("8ee48b2f0466d2ec250cb85a9f6a865a","hQl18yxDS9y6axykz21qa-PIrTDAlN9U");
 		PostParameters pps = new PostParameters();
 		pps.setImg(new File(imagePath));
-		
 		JSONObject json = hrs.detectionDetect(pps);
 		
 		JSONArray array = json.getJSONArray("face");

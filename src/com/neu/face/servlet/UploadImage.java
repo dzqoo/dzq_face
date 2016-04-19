@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +17,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 
 public class UploadImage extends HttpServlet {
-
+	
+	static Logger logger = Logger.getLogger ( UploadImage.class.getName());
+	
 	/**
 	 * java doc 注释
 	 * <p>
@@ -82,6 +84,9 @@ public class UploadImage extends HttpServlet {
 		OutputStream ots = null;
 		try {
 			if (isM) {
+//				logger.info("this is a debug test");
+//				logger.debug("this is a debug test");
+//				logger.error("this is a debug test");
 				// 文件项目工厂
 				FileItemFactory fif = new DiskFileItemFactory();
 				// 文件上传帮助类
@@ -113,13 +118,18 @@ public class UploadImage extends HttpServlet {
 			}
 		} catch (Exception e) {
 			// 记录到日志
+			logger.error("file is not exsit! ");
 			e.printStackTrace();
 		} finally {
 			if (in != null) {
 				in.close();
+			}else{
+				logger.error("file is not exsit! ");
 			}
 			if (ots != null) {
 				ots.close();
+			}else{
+				logger.error("file is not exsit! ");
 			}
 		}
 		

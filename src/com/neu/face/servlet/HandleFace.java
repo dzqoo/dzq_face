@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,6 +21,8 @@ import com.facepp.http.PostParameters;
  */
 public class HandleFace extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger = Logger.getLogger ( UploadImage.class.getName());
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -100,6 +103,7 @@ public class HandleFace extends HttpServlet {
 				out.close();
 			}
 		} catch (Exception e) {
+			logger.error("file is not exsit! ");
 			e.printStackTrace();
 		}
 	}
